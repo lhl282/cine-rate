@@ -1,11 +1,12 @@
-<div class="max-w-sm mx-auto mt-10 p-6 bg-white shadow rounded">
-    <h2 class="text-xl font-bold mb-4">Iniciar sesión</h2>
-  
-    <input [(ngModel)]="email" type="email" placeholder="Correo" class="w-full mb-2 p-2 border rounded">
-    <input [(ngModel)]="password" type="password" placeholder="Contraseña" class="w-full mb-2 p-2 border rounded">
-  
-    <button (click)="login()" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Entrar</button>
-  
-    <p *ngIf="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
-  </div>
-  
+<div class="max-w-sm mx-auto mt-10 p-6 bg-white dark:bg-gray-800 text-black dark:text-white shadow rounded">
+  <h2 class="text-xl font-bold mb-4 text-center">Iniciar sesión</h2>
+
+  <input [(ngModel)]="email" type="email" placeholder="Correo" class="w-full mb-2 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded">
+  <input [(ngModel)]="password" type="password" placeholder="Contraseña" class="w-full mb-2 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded">
+
+  <button (click)="login()" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">
+    Entrar
+  </button>
+
+  <p *ngIf="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
+</div>
