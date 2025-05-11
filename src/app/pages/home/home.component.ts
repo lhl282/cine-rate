@@ -1,11 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  movies: any[] = [];
 
+  constructor(private movieService: MovieService) {}
+
+  ngOnInit(): void {
+    this.movieService.getPopularMovies().subscribe({
+      next: (res) => {
+        this.movies = res.results;
+      },
+      error: (err) => {
+        console.error('Error al cargar películas', err);
+      }
+    });
+  }
 }

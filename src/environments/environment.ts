@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 export const environment = {
     production: false,
+    tmdbApiKey: "a9825b6c57baf1c7ea5814ced440a96a",
     firebaseConfig:{
         apiKey: "AIzaSyAtVJ0Iu5mklxYP9rQFmszEIZgZN7Q94VU",
         authDomain: "cine-rate.firebaseapp.com",

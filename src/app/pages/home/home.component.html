@@ -1,1 +1,13 @@
-<p>home works!</p>
+<section class="py-8 px-4 max-w-6xl mx-auto">
+  <h1 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Películas populares</h1>
+
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div *ngFor="let movie of movies" class="bg-white dark:bg-gray-800 rounded shadow hover:shadow-lg transition">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="rounded-t w-full h-72 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{{ movie.title }}</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Estreno: {{ movie.release_date }}</p>
+      </div>
+    </div>
+  </div>
+</section>
