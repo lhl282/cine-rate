@@ -2,20 +2,61 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../services/movie.service';
+import { Rating } from '../../models/rating.model';
+import { RatingService } from '../../services/rating.service';
+import { Auth } from '@angular/fire/auth';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './movie-detail.component.html'
 })
 export class MovieDetailComponent implements OnInit {
   movie: any = null;
 
+  userEmail: string | null = null;
+  newRating: Rating = {
+    movieId: 0,
+    userId: '',
+    userEmail: '',
+    comment: '',
+    score: 5,
+    timestamp: 0
+  };
+  
+  ratings: Rating[] = [];
+
   constructor(
+    private auth: Auth,
+    private ratingService: RatingService,
     private route: ActivatedRoute,
     private movieService: MovieService
-  ) {}
+  ) {
+    this.auth.onAuthStateChanged(user => {
+      this.userEmail = user?.email || null;
+      this.newRating.userId = user?.uid || '';
+      this.newRating.userEmail = user?.email || '';
+    });
+  }
+
+  submitRating() {
+    if (!this.movie) return;
+
+    this.newRating.movieId = this.movie.id;
+    this.newRating.timestamp = Date.now();
+
+    this.ratingService.addRating(this.newRating).then(() => {
+      this.newRating.comment = '';
+      this.loadRatings();
+    });
+  }
+
+  loadRatings() {
+    if (!this.movie) return;
+    this.ratingService.getRatingsForMovie(this.movie.id).then(res => this.ratings = res);
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -25,5 +66,8 @@ export class MovieDetailComponent implements OnInit {
         error: (err) => console.error('Error al cargar detalles:', err)
       });
     }
+    this.loadRatings();
   }
+
+
 }

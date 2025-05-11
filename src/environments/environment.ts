@@ -13,7 +13,8 @@ export const environment = {
         projectId: "cine-rate",
         storageBucket: "cine-rate.firebasestorage.app",
         messagingSenderId: "130468715991",
-        appId: "1:130468715991:web:fe4b9d05711f1498fd3f92"
+        appId: "1:130468715991:web:fe4b9d05711f1498fd3f92",
+        databaseURL: 'https://cine-rate-default-rtdb.europe-west1.firebasedatabase.app'
       },
 }
 
