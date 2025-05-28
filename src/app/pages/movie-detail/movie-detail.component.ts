@@ -49,24 +49,28 @@ export class MovieDetailComponent implements OnInit {
 
     this.ratingService.addRating(this.newRating).then(() => {
       this.newRating.comment = '';
-      this.loadRatings();
+      this.loadRatings(this.movie.id);
     });
   }
 
-  loadRatings() {
-    if (!this.movie) return;
-    this.ratingService.getRatingsForMovie(this.movie.id).then(res => this.ratings = res);
+  loadRatings(movieId: number) {
+    this.ratingService.getRatingsForMovie(movieId).then(res => {
+    this.ratings = res;
+  });
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.movieService.getMovieById(id).subscribe({
-        next: (data) => (this.movie = data),
+        next: (movie) => {
+        this.movie = movie;
+        this.loadRatings(this.movie.id);
+      },
         error: (err) => console.error('Error al cargar detalles:', err)
       });
     }
-    this.loadRatings();
+    
   }
 
 

@@ -1,0 +1,47 @@
+<!-- filters.component.html -->
+<div class="bg-gray-100 dark:bg-gray-900 p-4 rounded mb-6">
+  <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Filtrar películas</h2>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <!-- Buscar por título -->
+    <input [(ngModel)]="filters.query" (input)="onFilterChange()"
+           placeholder="Buscar por título"
+           class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+
+    <!-- Filtro por género -->
+    <select [(ngModel)]="filters.genreId" (change)="onFilterChange()"
+            class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+      <option value="">Todos los géneros</option>
+      <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
+    </select>
+
+    <!-- Filtro por año -->
+    <input type="number" min="1900" max="2025" [(ngModel)]="filters.year" (change)="onFilterChange()"
+           placeholder="Año de estreno"
+           class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+
+    <!-- Filtro por puntuación -->
+    <div class="col-span-full">
+      <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Puntuación mínima: {{ filters.minRating }}</label>
+      <input type="range" min="0" max="10" step="0.1" [(ngModel)]="filters.minRating" (change)="onFilterChange()"
+             class="w-full">
+    </div>
+
+    <!-- Ordenar por -->
+    <select [(ngModel)]="filters.sortBy" (change)="onFilterChange()"
+            class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+      <option value="popularity.desc">Popularidad ↓</option>
+      <option value="popularity.asc">Popularidad ↑</option>
+      <option value="vote_average.desc">Puntuación ↓</option>
+      <option value="release_date.desc">Estreno ↓</option>
+    </select>
+    
+    <button
+      (click)="clearFilters()"
+      class="bg-gray-700 hover:bg-gray-600 text-white rounded transition"
+    >
+      Limpiar filtros
+    </button>
+
+  </div>
+</div>
