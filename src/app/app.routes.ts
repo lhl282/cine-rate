@@ -3,7 +3,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { RegisterComponent } from './pages/register/register.component';
 import { MovieDetailComponent } from './pages/movie-detail/movie-detail.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
