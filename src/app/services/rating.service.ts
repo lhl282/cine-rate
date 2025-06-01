@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Database, ref, push, set, get, child } from '@angular/fire/database';
 import { Rating } from '../models/rating.model';
-import { firstValueFrom } from 'rxjs';
+import { query, orderByChild, equalTo } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +22,16 @@ export class RatingService {
     if (!data) return [];
     return (Object.values(data) as Rating[]).filter((r: Rating) => r.movieId === movieId);
   }
+
+  getRatingsByUserId(userId: string): Promise<Rating[]> {
+    const ratingsRef = ref(this.db, 'ratings');
+    const q = query(ratingsRef, orderByChild('userId'), equalTo(userId));
+
+    return get(q).then(snapshot => {
+      const data = snapshot.val();
+      if (!data) return [];
+      return Object.values(data) as Rating[];
+    });
+  }
+
 }

@@ -1,19 +1,18 @@
 <nav class="bg-gray-900 text-white p-4 flex justify-between items-center shadow">
-    <a routerLink="/" class="text-2xl font-bold text-blue-400">CineRate</a>
-    
-    <div class="flex gap-4 items-center">
-      <ng-container *ngIf="user; else loggedOut">
-        <span class="text-sm">Hola, {{ user.email }}</span>
-        <button (click)="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Cerrar sesión</button>
-      </ng-container>
-      
+  <a routerLink="/" class="text-2xl font-bold text-blue-400">CineRate</a>
+  
+  <div class="flex gap-4 items-center">
+    <ng-container *ngIf="user; else loggedOut">
+      <a *ngIf="user" routerLink="/mis-valoraciones">Mis valoraciones</a>
+      <span>Hola, {{ user.email }}</span>
+      <button (click)="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Cerrar sesión</button>
+    </ng-container>
+
+     
+
       <ng-template #loggedOut>
         <a routerLink="/login" class="hover:underline">Iniciar sesión</a>
         <a routerLink="/register" class="hover:underline">Registrarse</a>
-        <button (click)="toggleTheme()" class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm">
-          🌙 / ☀️
-        </button>
-        
       </ng-template>
     </div>
   </nav>

@@ -25,7 +25,4 @@ export class NavbarComponent {
     this.authService.logout();
   }
 
-  toggleTheme() {
-    this.theme.toggleTheme();
-  }
 }
