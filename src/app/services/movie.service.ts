@@ -33,12 +33,16 @@ export class MovieService {
     if (filters.year) params = params.set('primary_release_year', filters.year.toString());
     if (filters.minRating !== undefined) params = params.set('vote_average.gte', filters.minRating.toString());
     if (filters.sortBy) params = params.set('sort_by', filters.sortBy);
+    if (filters.page) params = params.set('page', filters.page.toString());
     if (filters.query) {
       params = params.set('query', filters.query);
       return this.http.get<TmdbMovieResponse>(`${this.baseUrl}/search/movie`, { params });
     } else {
       return this.http.get<TmdbMovieResponse>(`${this.baseUrl}/discover/movie`, { params });
     }
+
+    
+
   }
 
   getGenres() : Observable<GenreResponse>{
