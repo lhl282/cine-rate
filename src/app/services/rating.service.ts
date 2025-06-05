@@ -23,15 +23,16 @@ export class RatingService {
     return (Object.values(data) as Rating[]).filter((r: Rating) => r.movieId === movieId);
   }
 
-  getRatingsByUserId(userId: string): Promise<Rating[]> {
-    const ratingsRef = ref(this.db, 'ratings');
-    const q = query(ratingsRef, orderByChild('userId'), equalTo(userId));
+  getRatingsByUserId(userId: string): Promise<(Rating & { id: string })[]> {
+  const ratingsRef = ref(this.db, 'ratings');
+  const q = query(ratingsRef, orderByChild('userId'), equalTo(userId));
 
-    return get(q).then(snapshot => {
-      const data = snapshot.val();
-      if (!data) return [];
-      return Object.values(data) as Rating[];
-    });
-  }
+  return get(q).then(snapshot => {
+    const data = snapshot.val();
+    if (!data) return [];
+    return Object.entries(data).map(([key, value]) => ({ ...(value as Rating), id: key }));
+  });
+}
+
 
 }
