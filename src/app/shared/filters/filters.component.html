@@ -28,7 +28,7 @@
     </div>
 
     <!-- Ordenar por -->
-    <select [(ngModel)]="filters.sortBy" (change)="onFilterChange()" class="p-2 rounded bg-white dark:bg-gray-800 text-black dark:text-white border">
+    <select [(ngModel)]="filters.sortBy" (change)="onFilterChange()" class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
       <option value="popularity.desc">Popularidad ↓</option>
       <option value="popularity.asc">Popularidad ↑</option>
       <option value="vote_average.desc">Puntuación ↓</option>
@@ -39,7 +39,8 @@
     
     <button
       (click)="clearFilters()"
-      class="bg-gray-700 hover:bg-gray-600 text-white rounded transition"
+      class="bg-gray-700  "
+      class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white"
     >
       Limpiar filtros
     </button>

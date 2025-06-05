@@ -36,7 +36,7 @@ export class MyRatingsComponent implements OnInit {
       const results = await Promise.all(ratings.map(async (r) => {
         const movie = await this.movieService.getMovieById(r.movieId.toString()).toPromise();
         return {
-          id: r.id, // 👈 asegúrate de conservarlo
+          id: r.id,
           comment: r.comment,
           score: r.score,
           movieId: r.movieId,

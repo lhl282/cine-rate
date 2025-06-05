@@ -1,19 +1,22 @@
-<nav class="bg-gray-900 text-white p-4 flex justify-between items-center shadow">
-  <a routerLink="/" class="text-2xl font-bold text-blue-400">CineRate</a>
-  
+<nav class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-4 flex justify-between items-center border-b border-gray-200 dark:border-none">
+  <!-- Logo -->
+  <a routerLink="/" class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+    CineRate
+  </a>
+
+  <!-- Enlaces y botones -->
   <div class="flex gap-4 items-center">
     <ng-container *ngIf="user; else loggedOut">
-      <a *ngIf="user" routerLink="/mis-valoraciones">Mis valoraciones</a>
+      <a routerLink="/mis-valoraciones" class="hover:underline">Mis valoraciones</a>
       <span>Hola, {{ user.email }}</span>
-      <button (click)="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Cerrar sesión</button>
+      <button (click)="logout()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition">
+        Cerrar sesión
+      </button>
     </ng-container>
 
-     
-
-      <ng-template #loggedOut>
-        <a routerLink="/login" class="hover:underline">Iniciar sesión</a>
-        <a routerLink="/register" class="hover:underline">Registrarse</a>
-      </ng-template>
-    </div>
-  </nav>
-  
+    <ng-template #loggedOut>
+      <a routerLink="/login" class="hover:underline">Iniciar sesión</a>
+      <a routerLink="/register" class="hover:underline">Registrarse</a>
+    </ng-template>
+  </div>
+</nav>

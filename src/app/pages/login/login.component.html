@@ -1,12 +1,15 @@
-<div class="max-w-sm mx-auto mt-10 p-6 bg-white dark:bg-gray-800 text-black dark:text-white shadow rounded">
+<div class="max-w-sm mx-auto mt-10 p-6 bg-gray-100 border border-gray-100 dark:border-none dark:bg-gray-800 text-black dark:text-white shadow-lg rounded">
+  
+
   <h2 class="text-xl font-bold mb-4 text-center">Iniciar sesión</h2>
 
-  <input [(ngModel)]="email" type="email" placeholder="Correo" class="w-full mb-2 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded">
-  <input [(ngModel)]="password" type="password" placeholder="Contraseña" class="w-full mb-2 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded">
+  <form (ngSubmit)="login()" class="space-y-4">
+    <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required class="w-full mb-2 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"/>
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Contraseña" required class="w-full mb-2 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"/>
 
-  <button (click)="login()" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">
-    Entrar
-  </button>
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">Iniciar sesión</button>
+  </form>
 
   <p *ngIf="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
+
 </div>

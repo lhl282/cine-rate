@@ -23,11 +23,34 @@ export class RegisterComponent {
       .then(() => {
         this.success = 'Usuario registrado con éxito';
         this.error = '';
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       })
-      .catch(err => {
-        this.error = err.message;
+      .catch(error => {
+        this.error = this.getFriendlyError(error.code);
         this.success = '';
       });
+
   }
+
+  getFriendlyError(code: string): string {
+  switch (code) {
+    case 'auth/invalid-email':
+      return 'El correo no tiene un formato válido.';
+    case 'auth/missing-password':
+      return 'Debes introducir una contraseña.';
+    case 'auth/wrong-password':
+      return 'La contraseña es incorrecta.';
+    case 'auth/user-not-found':
+      return 'No existe una cuenta con ese correo.';
+    case 'auth/email-already-in-use':
+      return 'Ya hay una cuenta con ese correo.';
+    case 'auth/weak-password':
+      return 'La contraseña es demasiado débil (mínimo 6 caracteres).';
+    case 'auth/missing-email':
+      return 'Debes introducir un correo electrónico.';
+    default:
+      return 'Ha ocurrido un error. Inténtalo de nuevo.';
+  }
+}
+
 }

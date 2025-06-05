@@ -15,14 +15,14 @@
     </div>
   </div>
   <div class="mt-6 flex justify-center items-center gap-4">
-  <button (click)="previousPage()" [disabled]="currentPage <= 1" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">
-    ⬅ Anterior
+  <button (click)="previousPage()" [disabled]="currentPage <= 1" class="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+    Anterior
   </button>
 
   <span class="text-white">Página {{ currentPage }}</span>
 
-  <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">
-    Siguiente ➡
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+    Siguiente
   </button>
 </div>
 

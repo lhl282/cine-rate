@@ -1,25 +1,55 @@
-<div *ngFor="let r of ratings" class="bg-gray-800 text-white p-4 rounded mb-4 flex gap-4 items-start">
+<section class="py-8 px-4 max-w-6xl mx-auto">
+  <h1 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+    🎬 Mis valoraciones
+  </h1>
 
-  <img [src]="'https://image.tmdb.org/t/p/w200' + r.posterPath" class="rounded w-24 h-auto flex-shrink-0" />
+  <div *ngIf="ratings.length === 0" class="text-gray-600 dark:text-gray-300 text-center mt-10 text-lg">
+    No hay valoraciones todavía.
+  </div>
 
+ <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-6">
+  <div *ngFor="let r of ratings"
+       class="bg-white dark:bg-gray-800 rounded shadow hover:shadow-lg transition p-4 flex flex-col md:flex-row gap-4 items-start">
 
-  <div class="flex-1">
-    <h3 class="text-xl font-semibold">{{ r.movieTitle }}</h3>
-    <p class="text-sm text-gray-400 mb-2">Puntuación: {{ r.score }}/10</p>
-    <p>{{ r.comment }}</p>
+    <!-- Imagen -->
+    <img [src]="'https://image.tmdb.org/t/p/w200' + r.posterPath"
+         alt="{{ r.movieTitle }}"
+         class="w-32 h-auto rounded shadow-md object-cover flex-shrink-0" />
 
-    <div *ngIf="editingId !== r.id" class="flex gap-2 mt-2">
-      <button (click)="startEdit(r)" class="px-2 py-1 bg-yellow-500 text-white rounded">Editar</button>
-      <button (click)="deleteRating(r.id)" class="px-2 py-1 bg-red-600 text-white rounded">Eliminar</button>
-    </div>
+    <!-- Contenido -->
+    <div class="flex-1">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-1">{{ r.movieTitle }}</h2>
+      <p class="text-yellow-400 font-medium mb-2">⭐ {{ r.score }}/10</p>
+      <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">{{ r.comment }}</p>
 
-    <div *ngIf="editingId === r.id" class="mt-4 w-full">
-      <textarea [(ngModel)]="editComment" class="w-full min-h-[80px] p-2 rounded bg-gray-700 text-white resize-none"></textarea>
-      <input type="number" [(ngModel)]="editScore" min="1" max="10" class="w-20 mt-2 p-1 rounded bg-gray-700 text-white" />
-      <div class="mt-2 flex gap-2">
-        <button (click)="saveEdit(r.id)" class="px-3 py-1 bg-green-600 rounded">Guardar</button>
-        <button (click)="editingId = null" class="px-3 py-1 bg-gray-600 rounded">Cancelar</button>
+      <!-- Botones -->
+      <div *ngIf="editingId !== r.id" class="flex gap-2 mt-4">
+        <button (click)="startEdit(r)"
+                class="px-3 py-1 bg-yellow-500 text-black rounded hover:bg-yellow-400 transition">
+          Editar
+        </button>
+        <button (click)="deleteRating(r.id)"
+                class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-500 transition">
+          Eliminar
+        </button>
+      </div>
+
+      <!-- Edicion del formulario -->
+      <div *ngIf="editingId === r.id" class="mt-4 space-y-2">
+        <textarea [(ngModel)]="editComment"
+                  class="w-full p-2 rounded bg-gray-100 dark:bg-gray-700 text-black dark:text-white resize-none min-h-[80px]"
+                  placeholder="Edita tu comentario..."></textarea>
+
+        <input type="number" [(ngModel)]="editScore" min="1" max="10"
+               class="w-24 p-2 rounded bg-gray-100 dark:bg-gray-700 text-black dark:text-white" />
+
+        <div class="flex gap-2">
+          <button (click)="saveEdit(r.id)" class="px-3 py-1 bg-green-600 text-white rounded">Guardar</button>
+          <button (click)="editingId = null" class="px-3 py-1 bg-gray-600 text-white rounded">Cancelar</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+</section>
