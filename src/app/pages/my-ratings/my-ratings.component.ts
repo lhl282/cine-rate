@@ -14,13 +14,17 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './my-ratings.component.html'
 })
 export class MyRatingsComponent implements OnInit {
+  // Id del rating que se esta editando 
   editingId: string | null = null;
+  // Comentario editado 
   editComment: string = '';
+  // Puntuacion editada 
   editScore: number = 0;
 
- ratings: (Rating & { id: string, movieTitle?: string, posterPath?: string })[] = [];
+  // Lista de ratings del usuario con informacion de la pelicula
+  ratings: (Rating & { id: string, movieTitle?: string, posterPath?: string })[] = [];
 
-
+  // Servicios y dependencias inyectadas
   constructor(
     private auth: Auth,
     private ratingService: RatingService,
@@ -28,10 +32,12 @@ export class MyRatingsComponent implements OnInit {
     private db: Database
   ) {}
 
+  // Metodo que se ejecuta al inicializar el componente
   ngOnInit() {
     const user = this.auth.currentUser;
     if (!user) return;
 
+    // Obtiene los ratings del usuario y agrega informacion de la pelicula
     this.ratingService.getRatingsByUserId(user.uid).then(async (ratings) => {
       const results = await Promise.all(ratings.map(async (r) => {
         const movie = await this.movieService.getMovieById(r.movieId.toString()).toPromise();
@@ -51,12 +57,14 @@ export class MyRatingsComponent implements OnInit {
     });
   }
 
+  // Inicia el modo de edicion para una valoracion especifica
   startEdit(rating: Rating & { id: string }) {
     this.editingId = rating.id;
     this.editComment = rating.comment;  
     this.editScore = rating.score;
   }
 
+  // Guarda los cambios realizados en un rating
   saveEdit(ratingId: string) {
     const ratingRef = ref(this.db, `ratings/${ratingId}`);
     update(ratingRef, {
@@ -69,6 +77,7 @@ export class MyRatingsComponent implements OnInit {
     });
   }
 
+  // Elimina un rating de la base de datos
   deleteRating(ratingId: string) {
     const ratingRef = ref(this.db, `ratings/${ratingId}`);
     remove(ratingRef).then(() => {

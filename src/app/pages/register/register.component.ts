@@ -11,17 +11,20 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-  email = '';
-  password = '';
-  error = '';
-  success = '';
+  
+  email = '';// Correo electronico ingresado por el usuario
+  password = '';// Contraseña ingresada por el usuario
+  error = '';// Mensaje de error para mostrar al usuario
+  success = ''; // Mensaje de exito para mostrar al usuario
 
+  // Inyeccion de servicios de autenticacion y router
   constructor(private authService: AuthService, private router: Router) {}
 
+  // Metodo para registrar un nuevo usuario
   register() {
     this.authService.register(this.email, this.password)
       .then(() => {
-        this.success = 'Usuario registrado con éxito';
+        this.success = 'Usuario registrado con exito';
         this.error = '';
         this.router.navigate(['/']);
       })
@@ -32,25 +35,26 @@ export class RegisterComponent {
 
   }
 
+  // Metodo para obtener un mensaje de error amigable segun el codigo de error
   getFriendlyError(code: string): string {
-  switch (code) {
-    case 'auth/invalid-email':
-      return 'El correo no tiene un formato válido.';
-    case 'auth/missing-password':
-      return 'Debes introducir una contraseña.';
-    case 'auth/wrong-password':
-      return 'La contraseña es incorrecta.';
-    case 'auth/user-not-found':
-      return 'No existe una cuenta con ese correo.';
-    case 'auth/email-already-in-use':
-      return 'Ya hay una cuenta con ese correo.';
-    case 'auth/weak-password':
-      return 'La contraseña es demasiado débil (mínimo 6 caracteres).';
-    case 'auth/missing-email':
-      return 'Debes introducir un correo electrónico.';
-    default:
-      return 'Ha ocurrido un error. Inténtalo de nuevo.';
+    switch (code) {
+      case 'auth/invalid-email':
+        return 'El correo no tiene un formato valido.';
+      case 'auth/missing-password':
+        return 'Debes introducir una contraseña.';
+      case 'auth/wrong-password':
+        return 'La contraseña es incorrecta.';
+      case 'auth/user-not-found':
+        return 'No existe una cuenta con ese correo.';
+      case 'auth/email-already-in-use':
+        return 'Ya hay una cuenta con ese correo.';
+      case 'auth/weak-password':
+        return 'La contraseña es demasiado debil (minimo 6 caracteres).';
+      case 'auth/missing-email':
+        return 'Debes introducir un correo electronico.';
+      default:
+        return 'Ha ocurrido un error. Intentalo de nuevo.';
+    }
   }
-}
 
 }

@@ -10,23 +10,23 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  email = '';
-  password = '';
-  success = '';
-  error = '';
+  email = ''; // Variable para almacenar el email
+  password = ''; // Variable para almacenar la contraseña
+  error = ''; // Mensaje de error en el login
 
+  // Inyeccion de dependencias: AuthService para autenticacion y Router para navegacion entre paginas
   constructor(private authService: AuthService, private router: Router) {}
 
+  // Metodo para manejar el login
   login() {
     this.authService.login(this.email, this.password)
       .then(() => this.router.navigate(['/']))
       .catch(error => {
         this.error = this.getFriendlyError(error.code);
-        this.success = '';
       });
-
   }
 
+  // Metodo para convertir codigos de error tecnicos en mensajes amigables
   getFriendlyError(code: string): string {
     switch (code) {
       case 'auth/invalid-email':
@@ -47,5 +47,4 @@ export class LoginComponent {
         return 'Ha ocurrido un error. Inténtalo de nuevo.';
     }
   }
-
 }

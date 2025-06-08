@@ -4,5 +4,5 @@ export interface MovieFilters {
   year?: number;
   minRating?: number;
   sortBy?: string;
-  page?: number; // 👈 nuevo
+  page?: number;
 }

@@ -1,29 +1,29 @@
 <section class="py-8 px-4 max-w-6xl mx-auto">
   <h1 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Películas populares</h1>
-<app-filters [genres]="genres" (filterChanged)="applyFilters($event)"></app-filters>
+  <app-filters [genres]="genres" (filterChanged)="applyFilters($event)"></app-filters>
 
-  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    
-    <div *ngFor="let movie of movies" class="bg-white dark:bg-gray-800 rounded shadow hover:shadow-lg transition">
-      <a [routerLink]="['/movie', movie.id]">
-      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="rounded-t w-full h-72 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{{ movie.title }}</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Estreno: {{ movie.release_date }}</p>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+      <div *ngFor="let movie of movies" class="bg-white dark:bg-gray-800 rounded shadow hover:shadow-lg transition">
+        <a [routerLink]="['/movie', movie.id]">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="rounded-t w-full h-72 object-cover">
+        <div class="p-4">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{{ movie.title }}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Estreno: {{ movie.release_date }}</p>
+        </div>
+        </a>
       </div>
-      </a>
     </div>
+    <div class="mt-6 flex justify-center items-center gap-4">
+    <button (click)="previousPage()" [disabled]="currentPage <= 1" class="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+      Anterior
+    </button>
+
+    <span class="text-sm text-gray-600 dark:text-gray-400">Página {{ currentPage }}</span>
+
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
+      Siguiente
+    </button>
   </div>
-  <div class="mt-6 flex justify-center items-center gap-4">
-  <button (click)="previousPage()" [disabled]="currentPage <= 1" class="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
-    Anterior
-  </button>
-
-  <span class="text-white">Página {{ currentPage }}</span>
-
-  <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white">
-    Siguiente
-  </button>
-</div>
 
 </section>

@@ -10,9 +10,11 @@ import { MovieFilters } from '../../models/filters.model';
   templateUrl: './filters.component.html'
 })
 export class FiltersComponent {
-  @Input() genres: any[] = [];
-  @Output() filterChanged = new EventEmitter<MovieFilters>();
+  
+  @Input() genres: any[] = [];// Lista de generos disponibles para filtrar
+  @Output() filterChanged = new EventEmitter<MovieFilters>();// Evento que se emite cuando cambian los filtros
 
+  // Objeto que contiene los filtros seleccionados
   filters: MovieFilters = {
     query: '',
     genreId: '',
@@ -21,6 +23,7 @@ export class FiltersComponent {
     sortBy: 'popularity.desc'
   };
 
+  // Metodo que se ejecuta al inicializar el componente
   ngOnInit() {
     const saved = localStorage.getItem('cineRateFilters');
     if (saved) {
@@ -29,6 +32,7 @@ export class FiltersComponent {
     }
   }
 
+  // Limpia todos los filtros y los valores guardados en localStorage
   clearFilters() {
     this.filters = {
       query: '',
@@ -41,6 +45,7 @@ export class FiltersComponent {
     this.onFilterChange();
   }
 
+  // Metodo que se llama cuando cambia algun filtro
   onFilterChange() {
     localStorage.setItem('cineRateFilters', JSON.stringify(this.filters));
     this.filterChanged.emit(this.filters);

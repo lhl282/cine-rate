@@ -1,5 +1,5 @@
 export interface TmdbMovieResponse {
-  results: any[]; // o crea un tipo `Movie` si prefieres
+  results: any[]; 
   page: number;
   total_results: number;
   total_pages: number;

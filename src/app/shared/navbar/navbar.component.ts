@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { Auth } from '@angular/fire/auth';
 import { User } from 'firebase/auth';
-import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,14 +12,18 @@ import { ThemeService } from '../../services/theme.service';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
+  // Usuario autenticado actualmente (null si no hay usuario)
   user: User | null = null;
 
-  constructor(private auth: Auth, private authService: AuthService, private theme: ThemeService) {
+  // Inyeccion de servicios de autenticacion y manejo de usuario
+  constructor(private auth: Auth, private authService: AuthService,) {
+    // Se suscribe a los cambios de estado de autenticacion
     this.auth.onAuthStateChanged((user) => {
       this.user = user;
     });
   }
 
+  // Metodo para cerrar sesion del usuario
   logout() {
     this.authService.logout();
   }

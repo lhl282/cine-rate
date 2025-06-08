@@ -13,16 +13,18 @@ import { MovieFilters } from '../../models/filters.model';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  movies: any[] = [];
-  genres: any[] = [];
+  movies: any[] = []; // Array para almacenar las películas
+  genres: any[] = []; // Array para almacenar los géneros de películas
 
-  currentPage = 1;
-  totalPages = 1;
-  lastFilters: MovieFilters = {};
+  currentPage = 1; // Página actual para paginación
+  totalPages = 1; // Total de páginas disponibles
+  lastFilters: MovieFilters = {}; // Últimos filtros aplicados
 
+  // Inyección del servicio MovieService
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
+    // Carga películas populares al iniciar
     this.movieService.getPopularMovies().subscribe({
       next: (res) => {
         this.movies = res.results;
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit {
   this.loadMovies();
   }
 
+  // Aplica filtros a las películas
   applyFilters(filters: MovieFilters) {
   this.currentPage = filters.page ?? 1;
   this.lastFilters = filters;
@@ -44,32 +47,33 @@ export class HomeComponent implements OnInit {
     this.totalPages = res.total_pages;
   });
 }
-
-getGenres() {
-  this.movieService.getGenres().subscribe(res => {
-    this.genres = res.genres;
-  });
-}
-
-loadMovies() {
-  this.movieService.getPopularMovies().subscribe(res => {
-    this.movies = res.results;
-  });
-}
-
-
-nextPage() {
-  if (this.currentPage < this.totalPages) {
-    this.currentPage++;
-    this.applyFilters({ ...this.lastFilters, page: this.currentPage });
+  // Obtiene los generos de películas
+  getGenres() {
+    this.movieService.getGenres().subscribe(res => {
+      this.genres = res.genres;
+    });
   }
-}
 
-previousPage() {
-  if (this.currentPage > 1) {
-    this.currentPage--;
-    this.applyFilters({ ...this.lastFilters, page: this.currentPage });
+  // Carga las películas
+  loadMovies() {
+    this.movieService.getPopularMovies().subscribe(res => {
+      this.movies = res.results;
+    });
   }
-}
 
-}
+  // Métodos para la paginacion
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.applyFilters({ ...this.lastFilters, page: this.currentPage });
+    }
+  }
+  
+  // Métodos para la paginacion
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.applyFilters({ ...this.lastFilters, page: this.currentPage });
+    }
+  }
+} 
